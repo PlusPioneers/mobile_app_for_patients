@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { Notification } from '@/types';
-import { notificationsAPI } from '@/services/api';
+import { notificationsAPI } from '@/services/mockAPI';
 
 interface NotificationsState {
   notifications: Notification[];

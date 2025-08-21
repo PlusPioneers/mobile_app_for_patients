@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { LabResult } from '@/types';
-import { labAPI } from '@/services/api';
+import { labAPI } from '@/services/mockAPI';
 
 interface LabState {
   results: LabResult[];

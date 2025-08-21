@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { Consultation, Doctor } from '@/types';
-import { consultationsAPI } from '@/services/api';
+import { consultationsAPI } from '@/services/mockAPI';
 
 interface ConsultationsState {
   consultations: Consultation[];

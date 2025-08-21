@@ -10,23 +10,33 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { Mic, Calendar, FileText, Activity, CircleAlert as AlertCircle, Clock } from 'lucide-react-native';
+import { Mic, Calendar, FileText, Activity, CircleAlert as AlertCircle, Clock, Bell } from 'lucide-react-native';
 import { useAuthStore } from '@/stores/authStore';
 import { useConsultationsStore } from '@/stores/consultationsStore';
 import { useNotificationsStore } from '@/stores/notificationsStore';
 
 export default function HomeScreen() {
   const router = useRouter();
-  const { user } = useAuthStore();
+  const { user, token } = useAuthStore();
   const { consultations, getConsultations } = useConsultationsStore();
   const { notifications, unreadCount, getNotifications } = useNotificationsStore();
   
   const [refreshing, setRefreshing] = React.useState(false);
 
+  useEffect(() => {
+    if (token) {
+      getConsultations(token);
+      getNotifications(token);
+    }
+  }, [token]);
+
   const onRefresh = async () => {
+    if (!token) return;
+    
     setRefreshing(true);
     try {
-      // Refresh data
+      await getConsultations(token);
+      await getNotifications(token);
     } catch (error) {
       console.error('Refresh error:', error);
     } finally {

@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { SymptomReport } from '@/types';
-import { symptomsAPI } from '@/services/api';
+import { symptomsAPI } from '@/services/mockAPI';
 
 interface SymptomsState {
   reports: SymptomReport[];

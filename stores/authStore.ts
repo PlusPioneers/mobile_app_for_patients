@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { User } from '@/types';
-import { authAPI, patientAPI } from '@/services/api';
+import { authAPI, patientAPI } from '@/services/mockAPI';
 
 interface AuthState {
   user: User | null;
@@ -108,12 +108,16 @@ export const useAuthStore = create<AuthState>()(
 
       checkAuthStatus: async () => {
         const { token } = get();
-        if (!token) return;
+        if (!token) {
+          set({ isAuthenticated: false });
+          return;
+        }
 
         try {
           const user = await patientAPI.getProfile(token);
           set({ user, isAuthenticated: true });
         } catch (error) {
+          console.log('Auth check failed, clearing auth state');
           set({
             user: null,
             token: null,
