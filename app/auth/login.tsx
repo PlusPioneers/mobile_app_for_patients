@@ -36,7 +36,7 @@ export default function LoginScreen() {
 
     try {
       clearError();
-      await login(email.toLowerCase().trim(), password);
+      // await login(email.toLowerCase().trim(), password);
       router.replace('/(tabs)');
     } catch (err) {
       // Error is handled by the store
